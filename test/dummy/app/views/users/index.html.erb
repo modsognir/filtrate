@@ -12,5 +12,6 @@
   
 <%= filtrate users_path do |f|%>
   <%= f.filter :name %>
+  <%= f.filter_date :date_of_birth, :prefix => "Date of Birth" %>
   <%= f.submit "Submit" %>
 <% end %>

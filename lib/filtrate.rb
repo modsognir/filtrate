@@ -1,9 +1,7 @@
-require 'active_support/concern'
-# require 'active_support/dependencies/autoload'
-# require 'active_support/core_ext/module/delegation'
 require 'active_record'
 require 'active_support'
 require 'action_view/helpers'
+
 
 require 'filtrate/filterable'
 require 'filtrate/helpers/form_helper'
@@ -12,6 +10,7 @@ module Filtrate
   extend ActiveSupport::Concern
   extend ActiveSupport::Autoload
   
+  autoload :Filter, 'filtrate/filter'
   autoload :Filterable, 'filtrate/filterable'
   autoload :FilterBuilder, 'filtrate/filter_builder'
   

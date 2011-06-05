@@ -1,24 +1,14 @@
 module Filterable
   def filtered(opts)
-    puts opts.inspect
     opts ||= {}
     scope = self.scoped
     opts.each do |attr, val|
-      scope = filter_attr(scope, attr, val) || scope
+      if val.kind_of? Hash
+        scope = Filtrate::Filter.new(scope, attr, val).to_scope if val['from'].present? && val['to'].present?
+      else
+        scope = Filtrate::Filter.new(scope, attr, val).to_scope if val.present?
+      end
     end
     scope
-  end
-  
-  def filter_attr(scope, attr, val)
-    if col = self.columns_hash[attr]
-      case col.type
-      when :string
-        scope.where(scope.table[attr].matches("%#{val}%"))
-      else
-        scope
-      end
-    else
-      scope
-    end
   end
 end
